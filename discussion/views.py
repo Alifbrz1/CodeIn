@@ -104,3 +104,19 @@ def send_fac(request, code, fac_id):
             return redirect('discussion', code=code)
     else:
         return render(request, 'std_login.html')
+    
+def delete_discussion(request, code, discussion_id):
+    if is_student_authorised(request, code):
+        try:
+            discussion = StudentDiscussion.objects.get(id=discussion_id, course__code=code, sent_by_id=request.session['student_id'])
+            discussion.delete()
+        except StudentDiscussion.DoesNotExist:
+            pass
+    elif is_faculty_authorised(request, code):
+        try:
+            discussion = FacultyDiscussion.objects.get(id=discussion_id, course__code=code, sent_by_id=request.session['faculty_id'])
+            discussion.delete()
+        except FacultyDiscussion.DoesNotExist:
+            pass
+
+    return redirect('discussion', code=code)

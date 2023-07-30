@@ -50,7 +50,6 @@
          <form action="{% url 'send_fac' course.code faculty.faculty_id %}" method="POST">
             {% csrf_token %}
             <div class="input-group mb-3 p-3">
-               {% comment %} <input type="text" class="form-control" placeholder="Write message..." name="content" required> {% endcomment %}
                {{ form.content }}
                <button class="btn btn-primary mx-2 rounded" type="submit">Send</button>
             </div>
@@ -59,7 +58,6 @@
          <form action="{% url 'send' course.code student.student_id %}" method="POST">
             {% csrf_token %}
             <div class="input-group mb-3 p-3">
-               {% comment %} <input type="text" class="form-control" placeholder="Write message..." name="content" required> {% endcomment %}
                {{ form.content }}
                <button class="btn btn-primary mx-2 rounded" type="submit" id="button">Send</button>
             </div>
@@ -71,25 +69,29 @@
          {% for discussion in discussions %}
          <div class="m-2 p-3">
             <div class="d-flex align-items-center">
-               <img class="align-self-baseline rounded-circle" src="/media/{{ discussion.author.photo}}" alt="image"
-                  style="height: 4rem;width:4rem;">
+               <img class="align-self-baseline rounded-circle" src="/media/{{ discussion.author.photo }}" alt="image"
+                  style="height: 4rem; width: 4rem;">
                <div class="mx-2">
-                  {% if discussion.author.role == "Faculty" %}
+                  {% if discussion.author.role == "StudentDiscussion" %}
                   <div class="d-inline-flex flex-wrap">
-                     <span class="fw-bold">{{discussion.sent_by}}</span><span class="fw-bold rounded text-success bg-success bg-opacity-10 mx-2 p-1" style="font-size:11px">Course teacher</span>
+                     <span class="fw-bold">{{ discussion.sent_by }}</span><span class="fw-bold rounded text-success bg-success bg-opacity-10 mx-2 p-1" style="font-size: 11px">Course student</span>
                   </div>
                   {% else %}
-                  <span class="fw-bold">{{discussion.sent_by}}</span>
+                  <span class="fw-bold">{{ discussion.sent_by }}</span>
                   {% endif %}
-                  <span class="text-muted mx-2" style="font-size:smaller">{{ discussion.time }}</span>
-                  <p class="text-wrap text-break my-2 px-2">{{discussion.content}}
-                  </p>
+                  <span class="text-muted mx-2" style="font-size: smaller">{{ discussion.time }}</span>
+                  <p class="text-wrap text-break my-2 px-2">{{ discussion.content }}</p>
                </div>
+               {% if discussion.author == student or discussion.author == faculty %}
+               <form action="{% url 'delete_discussion' code=course.code discussion_id=discussion.id %}" method="POST">
+                  {% csrf_token %}
+                       <button type="submit" class="btn btn-danger">Delete</button>
+                   </form>
+               {% endif %}
             </div>
          </div>
          <!-- divider -->
          <div style="border-bottom:1px solid rgb(211, 209, 209);"></div>
-         {% comment %} message ends {% endcomment %}
          {% endfor %}
          {% else %}
          <div class="text-center fs-6 text-muted">
@@ -97,6 +99,7 @@
          </div>
          {% endif %}
       </div>
+   </div>
    </div>
 </div>
 {% endblock %}

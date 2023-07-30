@@ -2,6 +2,7 @@ from django import forms
 from .models import StudentDiscussion, FacultyDiscussion
 
 
+
 class StudentDiscussionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(StudentDiscussionForm, self).__init__(*args, **kwargs)
@@ -28,3 +29,4 @@ class FacultyDiscussionForm(forms.ModelForm):
         widgets = {
             'content': forms.TextInput(attrs={'class': 'form-control', 'id': 'content', 'name': 'content', 'placeholder': 'Write message...', 'type': 'text'}),
         }
+        

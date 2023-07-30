@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block title %} {{ course.name }} | eLMS {% endblock title %}
+{% block title %} {{ course.name }} | CodeIn {% endblock title %}
 {% block profile %}
 {% url 'profile' faculty.faculty_id %}
 {% endblock %}
@@ -43,7 +43,7 @@
                      <span style="color:red">{{ field.errors }}</span>
                   </div>
                   {% endfor %}
-                  <p class="fw-bold" id="fileError"></p>
+                  <p class="fw-bold text-danger" id="fileError"> Only this type can accept : image/gif', 'image/jpeg', 'image/png', 'application/pdf', 'application/msword'</p>
                   <!-- submit button -->
                   <div class="d-grid col-12 mx-auto">
                      <button class="btn btn-primary my-2" type="submit">Post</button>

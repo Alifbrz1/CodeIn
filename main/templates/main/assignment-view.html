@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block title %} {{ assignment.title }} - eLMS {% endblock title %}
+{% block title %} {{ assignment.title }} - CodeIn {% endblock title %}
 {% block profile %}
 {% url 'profile' faculty.faculty_id %}
 {% endblock %}
@@ -29,9 +29,16 @@
       </ol>
    </nav>
 </div>
+
+
 <!-- navigation links end -->
 <div class="container">
-   <div class="shadow rounded p-3 assignment-info">
+   <iframe
+   frameBorder="0"
+   height="450px"  
+   src="https://onecompiler.com/embed/" 
+   width="100%"
+   ></iframe>   <div class="shadow rounded p-3 assignment-info">
       <p class="px-2 fw-bold fs-5">{{assignment.title}}</p>
       <div class="p-2 text-break">{% autoescape off %}{{assignment.description}}{% endautoescape %}</div>
       <h6 class="p-2 fw-bold">Deadline: <span class="px-2" style="color:red"> {{assignment.due_date}} </span></h6>
